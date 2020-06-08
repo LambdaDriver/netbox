@@ -38,7 +38,7 @@ for plugin_path in settings.PLUGINS:
         )
         logging.debug(f'Successfully registered URLs from: {urlpatterns_path}')
     except ImportError:
-        logging.info(f'Could not load URLs for: {base_url}')
+        logging.exception(f'Could not load URLs for: {base_url}')
 
     # Check if the plugin specifies any API URLs
     try:
@@ -47,6 +47,6 @@ for plugin_path in settings.PLUGINS:
             path(f"{base_url}/", include((urlpatterns, f"{app.label}-api")))
         )
     except ImportError:
-        logging.info(f'Could not load API URLs for: {base_url}')
+        logging.exception(f'Could not load API URLs for: {base_url}')
     
     logging.info(f'Initializion complete for: {plugin_path}')
